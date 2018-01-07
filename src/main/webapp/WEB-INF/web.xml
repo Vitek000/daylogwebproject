@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+
+
+
+
+    <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
+       instead of the default XmlWebApplicationContext -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+
+    <!-- Configuration locations must consist of one or more comma- or space-delimited
+         fully-qualified @Configuration classes. Fully-qualified packages may also be
+         specified for component-scanning -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>daylog.AppConfig</param-value>
+    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>com.eastview.periodicals.WebAppConfig</param-value>-->
+    <!--</context-param>-->
+
+
+    <servlet>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>contextConfigLocation</param-name>-->
+            <!--<param-value>>com.eastview.periodicals.WebAppConfig</param-value>-->
+        <!--</init-param>-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>daylog.WebAppConfig</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <!--<listener>-->
+        <!--<listener-class>com.eastview.library.ServletInitializator</listener-class>    &lt;!&ndash; It is ContextLoaderListener! &ndash;&gt;-->
+    <!--</listener>-->
+
+    <!--<listener>-->
+        <!--<listener-class>com.eastview.library.PeriodicContextBeanManager</listener-class>-->
+    <!--</listener>-->
+
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+
+    <!--&lt;!&ndash; All filter mappings are defined in resin-web.xml &ndash;&gt;-->
+    <!--<filter>-->
+        <!--<filter-name>encodingFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>UTF-8</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>forceEncoding</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>hibernateFilter</filter-name>-->
+        <!--<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>sessionFactoryBeanName</param-name>-->
+            <!--<param-value>udb_SessionFactory</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>hibernateFilterApp</filter-name>-->
+        <!--<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>sessionFactoryBeanName</param-name>-->
+            <!--<param-value>udb_app_SessionFactory</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>UrlRewriteFilter</filter-name>-->
+        <!--<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>logLevel</param-name>-->
+            <!--<param-value>INFO</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>statusEnabled</param-name>-->
+            <!--<param-value>false</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>statisticFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>config</param-name>-->
+            <!--<param-value>/WEB-INF/periodic-statistic-config.xml</param-value>    &lt;!&ndash; doesn't work for some reason, not passing to StatisticFilter &ndash;&gt;-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>localeHandler</filter-name>-->
+        <!--<filter-class>com.eastview.filter.LocaleHandlerFilter</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>NoCacheFilter</filter-name>-->
+        <!--<filter-class>com.eastview.filter.NoCacheFilter</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>SitemeshFilter</filter-name>-->
+        <!--<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter>-->
+        <!--<filter-name>gzip</filter-name>-->
+        <!--<filter-class>com.eastview.commons.http.filter.GZIPFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>use-resin-filter</param-name>-->
+            <!--<param-value>com.caucho.filters.GzipFilter</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>use-vary</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+
+
+    <!--<filter>-->
+        <!--<filter-name>crawlersSessionInvalidatorFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>crawlersSessionInvalidatorFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--<filter-mapping>                &lt;!&ndash; must be here before springSecurityFilterChain to be able to catch 'enc' parameter posted to /processlogin from /login form before spring redirects to /  &ndash;&gt;-->
+        <!--<filter-name>localeHandler</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--<filter-mapping>            &lt;!&ndash; must go before springSecurityFilterChain to catch /processlogin &ndash;&gt;-->
+        <!--<filter-name>statisticFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!-- OTHER FILTER MAPPINGS ARE IN resin-web.xml -->
+
+
+
+
+
+    <!--<servlet>-->
+        <!--<servlet-name>jcaptcha</servlet-name>-->
+        <!--<servlet-class>com.eastview.periodicals.useraccount.service.ImageCaptchaServlet</servlet-class>-->
+        <!--<load-on-startup>0</load-on-startup>-->
+    <!--</servlet>-->
+
+
+    <!--&lt;!&ndash; image-downloader servlet declaration&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>image-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.ImageDownloadServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/error.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--&lt;!&ndash; image-preview-downloader servlet declaration&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>image-preview-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.ImagePreviewDownloadServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/error.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>other-files-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.LoadingFilesServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/error.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>userguide-files-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.DownoadingAttachmentFilesServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/error.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--&lt;!&ndash; sources-zip-downloader servlet declaration&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>sources-zip-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.SourcesZipDownloadServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/unsubscribed.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+
+
+    <!--&lt;!&ndash; sources-zip-downloader servlet declaration&ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>basket-zip-downloader</servlet-name>-->
+        <!--<servlet-class>com.eastview.library.view.servlet.BasketZipDownloadServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>errorUrl</param-name>-->
+            <!--<param-value>/common/unsubscribed.jsp</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+
+
+    <!--&lt;!&ndash; forward to outer login &ndash;&gt;-->
+    <!--<servlet>-->
+        <!--<servlet-name>get-away</servlet-name>-->
+        <!--<jsp-file>/common/forward_to_login.jsp</jsp-file>-->
+    <!--</servlet>-->
+
+
+    <!--<servlet>-->
+        <!--<servlet-name>rss</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>2</load-on-startup>-->
+    <!--</servlet>-->
+
+
+    <!--<servlet>-->
+        <!--<servlet-name>libcorner</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>2</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>util</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>2</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>siteindex</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>2</load-on-startup>-->
+    <!--</servlet>-->
+
+
+
+    <!-- ============SERVLET MAPPINGS============ -->
+    <!--<servlet>-->
+        <!--<servlet-name>dwr</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--</servlet>-->
+
+
+    <!--
+    ============SERVLET MAPPINGS============
+    -->
+    <!--<servlet>-->
+        <!--<servlet-name>kotobarabia-doc</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>2</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>kotobarabia-doc</servlet-name>-->
+        <!--<url-pattern>/Documents/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>kotobarabia-doc</servlet-name>-->
+        <!--<url-pattern>/Library/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>image-downloader</servlet-name>-->
+        <!--<url-pattern>/issue_images/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>image-preview-downloader</servlet-name>-->
+        <!--<url-pattern>/issue_images_preview/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>other-files-downloader</servlet-name>-->
+        <!--<url-pattern>/otherfiles/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>userguide-files-downloader</servlet-name>-->
+        <!--<url-pattern>/UserGuide/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>sources-zip-downloader</servlet-name>-->
+        <!--<url-pattern>/util/savearticle.jsp</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>basket-zip-downloader</servlet-name>-->
+        <!--<url-pattern>/util/savebasket.jsp</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>jcaptcha</servlet-name>-->
+        <!--<url-pattern>/register/captcha.jpg</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>rss</servlet-name>-->
+        <!--<url-pattern>/rss*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>util</servlet-name>-->
+        <!--<url-pattern>/util*</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>siteindex</servlet-name>-->
+        <!--<url-pattern>/siteindex*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>libcorner</servlet-name>-->
+        <!--<url-pattern>/librarians*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!-- other stuff -->
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+        </jsp-property-group>
+    </jsp-config>
+</web-app>
